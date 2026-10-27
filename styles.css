@@ -47,3 +47,103 @@ html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--in
 @media(max-width:900px){.motion-stage{padding-left:4%;padding-right:4%;min-height:650px}.garment-showroom{height:340px}.rack-item{width:190px;height:300px;margin-left:-95px}.rack-item .item-index{top:275px}.motion-productbar{padding-left:1%;padding-right:1%}.motion-ticker{margin-left:-4.4%;margin-right:-4.4%}}
 @media(max-width:600px){.motion-stage{min-height:590px;padding:0 4%}.motion-topline{height:38px;font-size:6px;letter-spacing:.09em}.motion-heading{padding-top:25px}.motion-heading h1{font-size:41px}.motion-heading>p:last-child{font-size:10px}.garment-showroom{height:300px;margin-top:4px}.hanger-rail{top:37px;left:1%;right:1%}.rail-glint{top:37px}.rack-item{top:8px;width:160px;height:275px;margin-left:-80px}.rack-item .item-index{top:252px;font-size:6px}.rack-item:after{bottom:16px}.rack-arrow{top:47%;width:30px;height:30px;font-size:15px}.rack-prev{left:0}.rack-next{right:0}.rack-hint{font-size:6px;bottom:4px}.motion-productbar{min-height:105px;align-items:flex-start;padding:15px 1% 18px;gap:10px}.motion-product-info{min-width:0}.motion-product-info h2{font-size:15px;line-height:1.3}.motion-product-info>p:last-child{font-size:8px;max-width:185px;line-height:1.5}.motion-product-info .motion-index{font-size:7px}.motion-controls{gap:10px;flex-direction:column-reverse;align-items:flex-end}.motion-cta{padding:11px 12px;gap:12px;font-size:7px}.pause-motion{font-size:10px;padding:0 0 4px}.pause-motion span{font-size:6px}.motion-ticker{margin-left:-4.2%;margin-right:-4.2%;height:20px}.ticker{padding:12px 0;font-size:8px}}
 @media(prefers-reduced-motion:reduce){.rack-item.active .garment-svg,.motion-live i,.motion-ticker div,.ticker div{animation:none!important;transition:none!important}}
+
+
+/* Premium photographic RAYర్ visual system */
+:root{--paper:#f5f2eb;--ink:#191917;--muted:#858075;--line:#ded9cf;--red:#a5242d}
+body{background:var(--paper)}
+.announcement{height:32px;background:#a5242d;font-size:8px;letter-spacing:.15em}
+.site-header{height:82px;background:#f8f6f0;border-bottom-color:#e0dcd2}
+.wordmark{color:#a5242d;font-size:31px}
+.desktop-nav{gap:34px}
+.desktop-nav a,.text-action,.bag-button{font-size:9px;letter-spacing:.16em}
+.motion-stage{background:#f6f3ec;min-height:700px;padding-left:6%;padding-right:6%}
+.motion-topline{height:43px;border-bottom-color:#e3ded4;font-size:8px;color:#918b80}
+.motion-live i{background:#a5242d;box-shadow:0 0 0 4px #a5242d14}
+.motion-heading{padding-top:28px}
+.motion-heading .eyebrow{color:#a5242d;font-size:8px;letter-spacing:.2em;margin-bottom:11px}
+.motion-heading h1{font-size:clamp(42px,4.8vw,66px);letter-spacing:-.08em}
+.motion-heading>p:last-child{font-size:11px;letter-spacing:.02em;color:#868176;margin-top:11px}
+.garment-showroom{height:390px;max-width:1220px;margin-top:5px;overflow:hidden}
+.hanger-rail{left:4%;right:4%;top:25px;height:1px;background:linear-gradient(90deg,transparent,#c5bfb4 7%,#c5bfb4 93%,transparent);z-index:0}
+.hanger-rail:before,.hanger-rail:after{width:4px;height:4px;top:-1.5px;background:#bdb6aa}
+.rail-glint{display:none}
+.rack-item{top:25px;width:220px;height:326px;margin-left:-110px;background:transparent;border:0;border-radius:0;filter:none;overflow:visible;z-index:1}
+.rack-item:after{left:25%;right:25%;bottom:5px;height:17px;background:#514b401c;filter:blur(14px)}
+.garment-photo{position:absolute;inset:0;display:block;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:600% 100%;background-position:var(--sprite-position,0%) center;background-repeat:no-repeat;transform-origin:50% 18%;transition:filter .55s}
+.rack-item.active .garment-photo{animation:photoFloat 4.8s ease-in-out infinite;filter:drop-shadow(0 10px 8px #2b241411)}
+.rack-item.active:after{left:28%;right:28%;height:20px;background:#514b4027}
+.tee-print{position:absolute;top:43%;left:50%;transform:translate(-50%,-50%);z-index:3;color:var(--print-color,#f6efe4);font-family:Georgia,'Times New Roman',serif;font-size:13px;font-weight:600;letter-spacing:-.07em;line-height:1;white-space:nowrap;opacity:.94;mix-blend-mode:normal;text-shadow:0 .3px .3px #00000012;pointer-events:none}
+.rack-item.active .tee-print{animation:printFloat 4.8s ease-in-out infinite}
+.rack-item .item-index{top:300px;color:#9d978b;font-size:7px;letter-spacing:.18em}
+.rack-arrow{width:40px;height:40px;border-color:#dcd6ca;background:#f8f6f0e8;color:#302e29}
+.rack-arrow:hover{background:#a5242d;border-color:#a5242d}
+.rack-prev{left:2%}.rack-next{right:2%}
+.rack-hint{bottom:4px;color:#aaa397;font-size:7px;letter-spacing:.19em}
+.motion-productbar{max-width:1050px;min-height:104px;padding:17px 2% 22px;border-top-color:#dfd9ce}
+.motion-product-info .motion-index{font-size:8px;color:#a5242d;letter-spacing:.16em}
+.motion-product-info h2{font-size:clamp(17px,2vw,23px);letter-spacing:-.055em}
+.motion-product-info h2 span{color:#a5242d;font-style:italic}
+.motion-product-info>p:last-child{font-size:9px;color:#898377}
+.motion-controls{gap:18px}
+.motion-cta{background:#1b1b18;border-color:#1b1b18;padding:14px 17px;font-size:8px;letter-spacing:.14em}
+.motion-cta:hover{background:#a5242d;border-color:#a5242d}
+.pause-motion{color:#777166}.pause-motion span{letter-spacing:.13em}
+.motion-ticker{background:#b9f747;color:#202216;height:24px;margin-left:-6.4%;margin-right:-6.4%;font-size:7px;letter-spacing:.17em}
+.ticker{background:#b9f747;color:#202216}
+.shop-section{padding:112px 6.5% 118px}
+.section-heading{margin-bottom:50px}
+.section-heading h2{font-size:clamp(44px,5vw,66px);letter-spacing:-.08em}
+.section-note{font-size:11px;line-height:1.9;color:#7c776d}
+.shop-toolbar{padding:18px 0;border-color:#dfd9ce}
+.filter{letter-spacing:.16em;font-size:8px}
+.sort-label{letter-spacing:.15em}
+.product-grid{gap:22px}
+.product-image{height:clamp(270px,34vw,435px);background:#ece7dd;isolation:isolate}
+.product-photo{position:absolute;inset:0;display:block;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:600% 100%;background-position:var(--sprite-position,0%) center;background-repeat:no-repeat;transition:transform .55s cubic-bezier(.2,.7,.2,1);z-index:0}
+.product-image:hover .product-photo{transform:scale(1.035)}
+.product-image img{display:none}
+.product-tag{z-index:3;left:12px;top:12px;background:#f8f6f0;color:#777064;font-size:7px;letter-spacing:.13em;padding:8px 9px}
+.product-print{position:absolute;z-index:2;left:50%;top:44%;transform:translate(-50%,-50%);font-family:Georgia,'Times New Roman',serif;font-size:clamp(11px,1.2vw,16px);letter-spacing:-.07em;white-space:nowrap;color:var(--print-color,#f6efe4);opacity:.94;pointer-events:none}
+.quick-view{z-index:4;left:11px;right:11px;bottom:11px;padding:13px;background:rgba(248,246,240,.96);font-size:8px;letter-spacing:.14em;color:#282722}
+.product-meta{padding-top:17px}
+.product-meta h3{font-family:var(--display);font-size:12px;letter-spacing:-.02em}
+.product-meta p{font-size:9px;color:#8b8579}
+.product-meta strong{font-family:var(--display);font-size:11px}
+.swatches{gap:8px;margin-top:15px}
+.swatch{width:14px;height:14px}
+.demo-note{margin-top:30px;font-size:9px;color:#938c80}
+.manifesto{background:#201f1b;color:#f7f3eb;min-height:480px;padding:78px 8%;grid-template-columns:1fr 1.1fr .35fr}
+.manifesto-symbol{color:#c12c36}
+.manifesto h2{font-size:clamp(52px,6vw,76px)}
+.manifesto-copy>p:not(.eyebrow){color:#bcb6aa;font-size:11px}
+.manifesto .eyebrow{color:#b8b1a5}
+.underlined-link{border-color:#e6e0d5;color:#f7f3eb}
+.manifesto-side{color:#9e988c}
+.newsletter{padding:82px 8%;background:#f8f6f0}
+.newsletter h2{font-size:38px}
+.newsletter p:not(.eyebrow){color:#827d72;font-size:11px}
+.site-footer{background:#f0ede5;padding-top:46px}
+.footer-mark{color:#a5242d}
+.site-footer>small{border-color:#dcd6ca}
+.quick-modal{background:#f8f6f0}
+.modal-photo{position:relative;min-height:460px;background-color:#eee9df;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:600% 100%;background-position:var(--sprite-position,40%) center;background-repeat:no-repeat;mix-blend-mode:normal}
+.modal-photo img{display:none}
+.modal-print{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-family:Georgia,'Times New Roman',serif;font-size:18px;letter-spacing:-.07em;color:var(--print-color,#f6efe4);white-space:nowrap;pointer-events:none}
+.modal-details{background:#f8f6f0}
+@keyframes photoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes printFloat{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 5px))}}
+@media(max-width:900px){
+ .motion-stage{padding-left:4%;padding-right:4%}.garment-showroom{height:365px}.rack-item{width:190px;height:310px;margin-left:-95px}.rack-item .item-index{top:284px}.motion-ticker{margin-left:-4.4%;margin-right:-4.4%}.product-grid{gap:28px 16px}.product-image{height:clamp(300px,55vw,470px)}
+}
+@media(max-width:600px){
+ .announcement{font-size:6.5px;letter-spacing:.1em}.site-header{height:68px}.wordmark{font-size:26px}
+ .motion-stage{min-height:610px;padding:0 4%}.motion-topline{font-size:6px;letter-spacing:.09em}.motion-heading{padding-top:26px}.motion-heading h1{font-size:42px}
+ .garment-showroom{height:300px;margin-top:7px}.hanger-rail{top:23px;left:2%;right:2%}.rack-item{top:23px;width:158px;height:245px;margin-left:-79px}.rack-item .item-index{top:235px;font-size:6px}.tee-print{font-size:10px;top:43%}
+ .rack-arrow{top:45%;width:30px;height:30px;font-size:15px}.rack-prev{left:0}.rack-next{right:0}.rack-hint{bottom:0;font-size:5.5px}
+ .motion-productbar{min-height:104px;padding:14px 0 16px}.motion-product-info h2{font-size:14px}.motion-product-info>p:last-child{font-size:7.5px;max-width:175px}.motion-cta{padding:10px 11px;font-size:6.5px}.pause-motion span{font-size:5.5px}
+ .shop-section{padding:76px 5% 84px}.section-heading{margin-bottom:32px}.product-grid{gap:28px 10px}.product-image{height:clamp(230px,68vw,370px)}.product-tag{left:6px;top:6px;font-size:5.5px;padding:6px}.quick-view{left:5px;right:5px;bottom:5px;padding:10px;font-size:6.5px}.product-meta{padding-top:12px}.product-meta h3{font-size:10.5px}.product-meta p{font-size:7.5px}.product-meta strong{font-size:10px}.product-print{font-size:10px}
+ .manifesto{grid-template-columns:1fr;padding:58px 7%;gap:18px}.manifesto-symbol{font-size:128px}.manifesto-copy{padding-left:7px}.manifesto h2{font-size:54px}
+ .newsletter{padding:56px 6%}.newsletter h2{font-size:31px}.newsletter form{width:100%;margin-top:28px}.site-footer{padding:35px 5% 25px}.quick-modal{grid-template-columns:1fr;max-height:92dvh}.modal-photo{height:32vh;min-height:220px;max-height:290px}.modal-details{padding:25px 23px}
+}
+@media(prefers-reduced-motion:reduce){.rack-item.active .garment-photo,.rack-item.active .tee-print,.motion-live i,.motion-ticker div,.ticker div{animation:none!important;transition:none!important}}
