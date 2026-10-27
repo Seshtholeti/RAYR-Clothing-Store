@@ -70,7 +70,7 @@ body{background:var(--paper)}
 .rail-glint{display:none}
 .rack-item{top:25px;width:220px;height:326px;margin-left:-110px;background:transparent;border:0;border-radius:0;filter:none;overflow:visible;z-index:1}
 .rack-item:after{left:25%;right:25%;bottom:5px;height:17px;background:#514b401c;filter:blur(14px)}
-.garment-photo{position:absolute;inset:0;display:block;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:600% 100%;background-position:var(--sprite-position,0%) center;background-repeat:no-repeat;transform-origin:50% 18%;transition:filter .55s}
+.garment-photo{position:absolute;inset:0;display:block;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:auto 100%;background-position:var(--sprite-position,0%) center;background-repeat:no-repeat;transform-origin:50% 18%;transition:filter .55s}
 .rack-item.active .garment-photo{animation:photoFloat 4.8s ease-in-out infinite;filter:drop-shadow(0 10px 8px #2b241411)}
 .rack-item.active:after{left:28%;right:28%;height:20px;background:#514b4027}
 .tee-print{position:absolute;top:43%;left:50%;transform:translate(-50%,-50%);z-index:3;color:var(--print-color,#f6efe4);font-family:Georgia,'Times New Roman',serif;font-size:13px;font-weight:600;letter-spacing:-.07em;line-height:1;white-space:nowrap;opacity:.94;mix-blend-mode:normal;text-shadow:0 .3px .3px #00000012;pointer-events:none}
@@ -100,7 +100,7 @@ body{background:var(--paper)}
 .sort-label{letter-spacing:.15em}
 .product-grid{gap:22px}
 .product-image{height:clamp(270px,34vw,435px);background:#ece7dd;isolation:isolate}
-.product-photo{position:absolute;inset:0;display:block;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:600% 100%;background-position:var(--sprite-position,0%) center;background-repeat:no-repeat;transition:transform .55s cubic-bezier(.2,.7,.2,1);z-index:0}
+.product-photo{position:absolute;inset:0;display:block;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:auto 100%;background-position:var(--sprite-position,0%) center;background-repeat:no-repeat;transition:transform .55s cubic-bezier(.2,.7,.2,1);z-index:0}
 .product-image:hover .product-photo{transform:scale(1.035)}
 .product-image img{display:none}
 .product-tag{z-index:3;left:12px;top:12px;background:#f8f6f0;color:#777064;font-size:7px;letter-spacing:.13em;padding:8px 9px}
@@ -127,7 +127,7 @@ body{background:var(--paper)}
 .footer-mark{color:#a5242d}
 .site-footer>small{border-color:#dcd6ca}
 .quick-modal{background:#f8f6f0}
-.modal-photo{position:relative;min-height:460px;background-color:#eee9df;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:600% 100%;background-position:var(--sprite-position,40%) center;background-repeat:no-repeat;mix-blend-mode:normal}
+.modal-photo{position:relative;min-height:460px;background-color:#eee9df;background-image:url('/assets/rayr-shirts-sprite.webp');background-size:auto 100%;background-position:var(--sprite-position,42%) center;background-repeat:no-repeat;mix-blend-mode:normal}
 .modal-photo img{display:none}
 .modal-print{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-family:Georgia,'Times New Roman',serif;font-size:18px;letter-spacing:-.07em;color:var(--print-color,#f6efe4);white-space:nowrap;pointer-events:none}
 .modal-details{background:#f8f6f0}
