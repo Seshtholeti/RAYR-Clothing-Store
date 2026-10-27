@@ -23,3 +23,124 @@ $("#searchToggle").onclick=()=>{$("#searchPanel").classList.toggle("open");if($(
 $("#menuToggle").onclick=()=>$("#mobileMenu").classList.add("open");$("#closeMenu").onclick=()=>$("#mobileMenu").classList.remove("open");$$(".mobile-menu a").forEach(a=>a.onclick=()=>$("#mobileMenu").classList.remove("open"));
 $("#newsletterForm").onsubmit=e=>{e.preventDefault();$("#newsletterMessage").textContent="Thanks for your interest. Connect an email service to activate signups.";$("#emailInput").value=""};
 renderBag();
+
+// Auto-animated product rack: floating garments slide across a rail like the supplied reference.
+(() => {
+  const rackData = [
+    {title:"THE DAILY TEE",shade:"RED",color:"#b3262e",kind:"tee",product:"daily-red",variant:"Red",dark:false,detail:"Relaxed fit · everyday weight · clean print"},
+    {title:"THE BOXy TEE",shade:"CHOCOLATE",color:"#76513f",kind:"tee",product:"boxy-brown",variant:"Brown",dark:false,detail:"Oversized fit · heavyweight feel"},
+    {title:"OFF DUTY",shade:"OFF-WHITE",color:"#e7e2d7",kind:"long",product:"off-duty",variant:"Off-white",dark:true,detail:"Relaxed fit · soft neutral · easy everyday"},
+    {title:"AFTER HOURS",shade:"BLACK",color:"#222222",kind:"tank",product:"after-hours",variant:"Black",dark:false,detail:"Sleeveless cut · bold minimal essential"},
+    {title:"THE BOXy TEE",shade:"RED",color:"#a8242c",kind:"tee",product:"boxy-brown",variant:"Red",dark:false,detail:"Roomier silhouette · signature red"},
+    {title:"AFTER HOURS",shade:"BROWN",color:"#75503e",kind:"tank",product:"after-hours",variant:"Brown",dark:false,detail:"Deep brown · understated statement"}
+  ];
+  const track = document.getElementById("rackTrack");
+  const stage = document.getElementById("garmentShowroom");
+  if (!track || !stage) return;
+  let active = 0, timer = null, paused = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducedMotion) paused = true;
+
+  function garmentSvg(item, n) {
+    const ink = item.dark ? "#252420" : "#f9f5ed";
+    const gradA = item.dark ? "#ffffff" : "#ffffff";
+    const gradB = item.color;
+    const paths = {
+      tee: "M61 43 L42 29 L25 40 L8 66 L27 81 L41 68 L40 207 L140 207 L139 68 L153 81 L172 66 L155 40 L138 29 L119 43 Q110 57 90 57 Q70 57 61 43 Z",
+      long: "M59 42 L40 29 L24 42 L2 98 L22 107 L43 67 L42 207 L138 207 L137 67 L158 107 L178 98 L156 42 L140 29 L121 42 Q111 55 90 55 Q69 55 59 42 Z",
+      tank: "M62 42 L48 23 L36 25 L29 66 L44 73 L44 207 L136 207 L136 73 L151 66 L144 25 L132 23 L118 42 Q110 57 90 57 Q70 57 62 42 Z"
+    };
+    const shape = paths[item.kind] || paths.tee;
+    const neck = item.kind === "tank"
+      ? '<path d="M63 42 Q70 63 90 63 Q110 63 117 42" fill="none" stroke="' + (item.dark ? "#b8b4aa" : "#ffffff") + '" stroke-opacity=".55" stroke-width="2"/>'
+      : '<path d="M65 43 Q70 59 90 59 Q110 59 115 43" fill="none" stroke="' + (item.dark ? "#b8b4aa" : "#ffffff") + '" stroke-opacity=".56" stroke-width="2"/>';
+    const detailLines = item.kind === "long"
+      ? '<path d="M20 96 L38 102 M160 102 L178 96" stroke="' + ink + '" stroke-opacity=".12" stroke-width="1.5"/>'
+      : '';
+    return '<svg class="garment-svg" viewBox="0 0 180 250" role="img" aria-label="' + item.shade + ' RAYR ' + item.kind + '">' +
+      '<defs><linearGradient id="cloth-' + n + '" x1="0" y1="0" x2="1" y2=".15"><stop offset="0" stop-color="' + gradB + '"/><stop offset=".28" stop-color="' + gradB + '"/><stop offset=".54" stop-color="' + gradA + '" stop-opacity=".13"/><stop offset=".74" stop-color="' + gradB + '"/><stop offset="1" stop-color="' + gradB + '"/></linearGradient><linearGradient id="shade-' + n + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".13"/></linearGradient></defs>' +
+      '<g class="hanger-stem"><path d="M90 38 L90 25 Q90 16 98 14 Q104 13 104 19 Q104 23 99 24"/><path d="M90 37 L53 50 L42 56 M90 37 L127 50 L138 56"/></g>' +
+      '<path d="' + shape + '" fill="url(#cloth-' + n + ')" stroke="#000000" stroke-opacity=".1" stroke-width="1.2"/>' +
+      '<path d="' + shape + '" fill="url(#shade-' + n + ')"/>' +
+      '<path d="M46 68 L46 197 M134 68 L134 197" stroke="' + ink + '" stroke-opacity=".07" stroke-width="1.2"/>' +
+      neck + detailLines +
+      '<text x="90" y="119" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="17" letter-spacing="-1.1" fill="' + ink + '">RAYర్</text>' +
+      '<path d="M64 126 L116 126" stroke="' + ink + '" stroke-opacity=".48" stroke-width=".7"/>' +
+      '<text x="90" y="137" text-anchor="middle" font-family="Arial,sans-serif" font-size="4.7" letter-spacing="1.7" fill="' + ink + '" opacity=".8">EVERYDAY / 001</text>' +
+      '<path d="M53 195 Q90 201 127 195" fill="none" stroke="' + ink + '" stroke-opacity=".2" stroke-width="1"/>' +
+      '</svg>';
+  }
+
+  rackData.forEach((item, i) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "rack-item";
+    button.setAttribute("aria-label", "View " + item.title + " in " + item.shade);
+    button.innerHTML = garmentSvg(item, i) + '<span class="item-index">' + String(i + 1).padStart(2,"0") + ' / DROP 001</span>';
+    button.addEventListener("click", () => {
+      if (active !== i) setActive(i);
+      else openSelectedProduct();
+    });
+    track.appendChild(button);
+  });
+
+  function positionRack() {
+    const items = [...track.querySelectorAll(".rack-item")];
+    const step = window.innerWidth < 420 ? 126 : window.innerWidth < 600 ? 142 : window.innerWidth < 900 ? 164 : 190;
+    items.forEach((el, i) => {
+      let relative = i - active;
+      const total = rackData.length;
+      if (relative > total / 2) relative -= total;
+      if (relative < -total / 2) relative += total;
+      const abs = Math.abs(relative);
+      const angle = relative === 0 ? 0 : relative < 0 ? 15 : -15;
+      const scale = relative === 0 ? 1.04 : abs === 1 ? .82 : .67;
+      el.style.left = 'calc(50% + ' + (relative * step) + 'px)';
+      el.style.transform = 'translateX(-50%) rotateY(' + angle + 'deg) scale(' + scale + ')';
+      el.style.opacity = abs > 2 ? "0" : abs === 2 ? ".25" : abs === 1 ? ".68" : "1";
+      el.style.filter = abs === 0 ? "saturate(1)" : "saturate(.58)";
+      el.style.pointerEvents = abs > 2 ? "none" : "auto";
+      el.style.zIndex = String(10 - abs);
+      el.classList.toggle("active", relative === 0);
+      el.setAttribute("aria-current", relative === 0 ? "true" : "false");
+    });
+  }
+
+  function updateCaption() {
+    const item = rackData[active];
+    document.getElementById("rackCount").textContent = String(active + 1).padStart(2,"0") + " / " + String(rackData.length).padStart(2,"0") + " — DROP 001";
+    document.getElementById("rackName").innerHTML = item.title + ' <span>— ' + item.shade + '</span>';
+    document.getElementById("rackDesc").textContent = item.detail;
+  }
+  function setActive(index) {
+    active = (index + rackData.length) % rackData.length;
+    positionRack();
+    updateCaption();
+  }
+  function openSelectedProduct() {
+    const item = rackData[active];
+    openQuick(item.product);
+    const p = products[item.product];
+    if (p.colours.includes(item.variant)) {
+      selectedColour = item.variant;
+      document.getElementById("chosenColour").textContent = item.variant;
+      const buttons = [...document.querySelectorAll("#modalColours [data-colour]")];
+      buttons.forEach(b => b.classList.toggle("active", b.dataset.colour === item.variant));
+    }
+  }
+  function startTimer() {
+    clearInterval(timer);
+    if (!paused) timer = setInterval(() => setActive(active + 1), 2800);
+  }
+
+  document.getElementById("rackPrev").addEventListener("click", () => {setActive(active - 1); startTimer();});
+  document.getElementById("rackNext").addEventListener("click", () => {setActive(active + 1); startTimer();});
+  document.getElementById("rackCta").addEventListener("click", openSelectedProduct);
+  const pause = document.getElementById("rackPause");
+  function updatePauseLabel() { pause.innerHTML = paused ? '▶ <span>PLAY MOTION</span>' : 'Ⅱ <span>PAUSE MOTION</span>'; pause.setAttribute("aria-label", paused ? "Play product animation" : "Pause product animation"); }
+  pause.addEventListener("click", () => {paused = !paused; updatePauseLabel(); startTimer();});
+  stage.addEventListener("mouseenter", () => { if (!paused) clearInterval(timer); });
+  stage.addEventListener("mouseleave", startTimer);
+  window.addEventListener("resize", positionRack, {passive:true});
+  positionRack(); updateCaption(); updatePauseLabel(); startTimer();
+})();
