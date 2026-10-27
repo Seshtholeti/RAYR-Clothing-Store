@@ -10,7 +10,8 @@ const $=s=>document.querySelector(s), $=(s,root=document)=>[...root.querySelecto
 const spritePositions={"Off-white":0,"Ivory":0,"Black":20,"Red":40,"Brown":60,"Charcoal":80,"Beige":100};
 function paintModalPhoto(product, colour){
   const modalPhoto=$("#modalPhoto");
-  const pos=spritePositions[colour] ?? product.spritePosition ?? 40;
+  const modalPositions={"Off-white":0,"Ivory":0,"Black":21,"Red":42,"Brown":63,"Charcoal":84,"Beige":100};
+  const pos=modalPositions[colour] ?? product.spritePosition ?? 42;
   modalPhoto.style.setProperty("--sprite-position",pos+"%");
   modalPhoto.style.setProperty("--print-color",(["Off-white","Ivory","Beige"].includes(colour)?"#a5242d":"#f6efe4"));
   modalPhoto.innerHTML='<span class="modal-print">RAYర్</span>';
@@ -18,7 +19,7 @@ function paintModalPhoto(product, colour){
 function openCart(){$("#cartDrawer").classList.add("open");$("#overlay").classList.add("open");document.body.style.overflow="hidden"}
 function closeCart(){$("#cartDrawer").classList.remove("open");if(!$("#quickModal").classList.contains("open"))$("#overlay").classList.remove("open");document.body.style.overflow=""}
 function renderBag(){let count=bag.reduce((s,i)=>s+i.qty,0),total=bag.reduce((s,i)=>s+i.qty*i.price,0);$("#bagCount").textContent=count;$("#drawerCount").textContent="("+count+")";$("#subtotal").textContent=money(total);let wrap=$("#cartItems");if(!bag.length){wrap.innerHTML='<div class="empty-bag"><span>R/</span><p>Your bag is taking a breather.</p><button id="continueShopping">KEEP EXPLORING ↗</button></div>';$("#continueShopping").onclick=closeCart;return}wrap.innerHTML=bag.map((item,i)=>'<div class="cart-row"><div class="cart-thumb" style="background:'+colourHex[item.colour]+'">R/</div><div><h3>'+item.name+'</h3><p>'+item.colour+' · Size '+item.size+'<br>'+money(item.price)+'</p><div class="quantity"><button data-qty="'+i+'" data-delta="-1">−</button><span>'+item.qty+'</span><button data-qty="'+i+'" data-delta="1">+</button></div></div><button class="remove" data-remove="'+i+'">Remove</button></div>').join("");$$("[data-qty]",wrap).forEach(b=>b.onclick=()=>{let i=+b.dataset.qty;bag[i].qty+=+b.dataset.delta;if(bag[i].qty<1)bag.splice(i,1);renderBag()});$$("[data-remove]",wrap).forEach(b=>b.onclick=()=>{bag.splice(+b.dataset.remove,1);renderBag()})}
-function openQuick(id){activeProduct=id;let p=products[id];selectedSize="";selectedColour=p.colours[0];$("#modalName").textContent=p.name;$("#modalPrice").textContent=money(p.price);$("#modalDesc").textContent=p.desc;paintModalPhoto(p,selectedColour);$("#modalColours").innerHTML=p.colours.map((c,i)=>'<button class="colour-choice '+(!i?'active':'')+'" data-colour="'+c+'" aria-label="'+c+'" title="'+c+'" style="--swatch:'+colourHex[c]+'"></button>').join("");$("#chosenColour").textContent=selectedColour;$$(".sizes button").forEach(b=>b.classList.remove("selected"));$("#addToBag").innerHTML='ADD TO BAG — '+money(p.price)+' <span>↗</span>';$("#quickModal").classList.add("open");$("#overlay").classList.add("open");document.body.style.overflow="hidden";$$("[data-colour]",$("#modalColours")).forEach(b=>b.onclick=()=>{$$("[data-colour]",$("#modalColours")).forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedColour=b.dataset.colour;$("#chosenColour").textContent=selectedColour})}
+function openQuick(id){activeProduct=id;let p=products[id];selectedSize="";selectedColour=p.colours[0];$("#modalName").textContent=p.name;$("#modalPrice").textContent=money(p.price);$("#modalDesc").textContent=p.desc;paintModalPhoto(p,selectedColour);$("#modalColours").innerHTML=p.colours.map((c,i)=>'<button class="colour-choice '+(!i?'active':'')+'" data-colour="'+c+'" aria-label="'+c+'" title="'+c+'" style="--swatch:'+colourHex[c]+'"></button>').join("");$("#chosenColour").textContent=selectedColour;$$(".sizes button").forEach(b=>b.classList.remove("selected"));$("#addToBag").innerHTML='ADD TO BAG — '+money(p.price)+' <span>↗</span>';$("#quickModal").classList.add("open");$("#overlay").classList.add("open");document.body.style.overflow="hidden";$$("[data-colour]",$("#modalColours")).forEach(b=>b.onclick=()=>{$$("[data-colour]",$("#modalColours")).forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedColour=b.dataset.colour;$("#chosenColour").textContent=selectedColour;paintModalPhoto(products[activeProduct],selectedColour)})}
 function closeQuick(){$("#quickModal").classList.remove("open");if(!$("#cartDrawer").classList.contains("open"))$("#overlay").classList.remove("open");document.body.style.overflow=""}
 function toast(msg){let t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2100)}
 $$("[data-quick]").forEach(b=>b.addEventListener("click",()=>openQuick(b.dataset.quick)));
@@ -102,6 +103,7 @@ renderBag();
     if (p.colours.includes(item.variant)) {
       selectedColour = item.variant;
       document.getElementById("chosenColour").textContent = item.variant;
+      paintModalPhoto(p,selectedColour);
       const buttons = [...document.querySelectorAll("#modalColours [data-colour]")];
       buttons.forEach(b => b.classList.toggle("active", b.dataset.colour === item.variant));
     }
