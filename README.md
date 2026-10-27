@@ -20,7 +20,7 @@ Then visit `http://localhost:8000`.
 - RAYర్ identity with off-white, black and red styling
 
 ## Demo limitations before launch
-- Product photography is sourced from remote Unsplash image URLs as placeholders. Replace it with your actual garment photography and ensure you have rights to use your chosen images.
+- The storefront now uses a six-colour photorealistic concept T-shirt sprite for the carousel and product tiles. These are design mockups, not photos of manufactured inventory; replace them with your own product photos before accepting orders.
 - Product titles, price points, fits, GSM descriptions, and colour options are sample content.
 - The bag is client-side only. Checkout, orders, inventory, shipping rates, tax calculation, returns, and payment processing are not connected.
 - Newsletter signup is a visual demo; connect it to an email platform.
